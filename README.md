@@ -11,7 +11,7 @@ solver iteration, labeled by iteration number; no solver data was interpolated o
 **Bracket Root** is a native Fortran implementation of bracketed scalar root solvers with
 converged/errored exit flags, per-iteration residual histories, and a measured method
 comparison. All solver code is written from scratch; in particular the safeguarded secant
-follows an original safeguard design and no published Brent implementation was consulted or
+is an independent implementation of standard bracketing/secant ideas
 copied (Brent's book is cited for context only).
 
 ## Purpose and scope
@@ -23,7 +23,7 @@ Solve `f(x) = 0` for a scalar double-precision `f` when a bracket `[a, b]` with
 |---|---|---|
 | `bisection` | midpoint; bracket halves every iteration | 44–47 iterations to `1e-14` (test set) |
 | `illinois` | regula falsi + Illinois retained-value halving | 7–9 iterations; 12 vs 465 for plain regula falsi on a hard convex case |
-| `safeguarded_secant` | secant steps constrained to the bracket, forced bisection backstop | 6–20 iterations; worst case bounded by 3x bisection |
+| `safeguarded_secant` | secant steps constrained to the bracket, forced bisection backstop | 6–20 iterations; bracket halves at least every 3rd iteration (exact-arithmetic width contraction from w0; not a universal runtime ratio vs residual-based bisection) |
 | `regula_falsi` | classic false position (baseline only) | stagnates one-sidedly on convex/concave problems |
 
 Out of scope: multivariate systems, unbounded root search, even-multiplicity
@@ -32,14 +32,15 @@ Out of scope: multivariate systems, unbounded root search, even-multiplicity
 ## Model summary
 
 - **Bisection:** `x_k = a + (b-a)/2`; guaranteed `|x_k - r| <= w_0/2^k`.
-- **Regula falsi:** secant-line zero through the bracket endpoints; superlinear while
+- **Regula falsi:** secant-line zero through the bracket endpoints; textbook-asymptotic superlinear while
   alternating, degrades to linear one-sided crawling on convex/concave `f`.
 - **Illinois:** same proposal, but an endpoint retained on two consecutive iterations
-  gets its stored value halved, breaking the crawl (order about 1.44 in practice).
-- **Safeguarded secant (ours):** secant proposal from the two latest iterates, accepted
+  gets its stored value halved, breaking the crawl (textbook asymptotic
+  order ~1.44 under standard assumptions).
+- **Safeguarded secant:** secant proposal from the two latest iterates, accepted
   only strictly inside the bracket (S1); after two consecutive non-halving iterations a
   midpoint step is forced (S2), so the bracket halves at least every third iteration —
-  bisection-grade worst case, secant-grade typical case.
+  bisection-grade worst-case WIDTH contraction, secant-grade typical case.
 
 Every solver returns `(root, residual, iterations, flag)` with documented codes:
 `OK` (0), `INVALID_BRACKET` (1), `MAX_ITERATIONS` (2), `NOT_CONVERGED` (3).

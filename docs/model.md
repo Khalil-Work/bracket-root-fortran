@@ -54,7 +54,9 @@ x_k = (v_a·b_{k-1} - v_b·a_{k-1}) / (v_a - v_b)
 
 with stored values `v_a = f(a)`, `v_b = f(b)` (true values in this method).
 
-* **Behaviour:** superlinear *while the iterates alternate sides* (the
+* **Behaviour:** textbook superlinear asymptotically while the iterates
+  alternate sides under standard regularity assumptions (this is an
+  asymptotic statement, not a general guarantee; the
   proposal is then a secant step through two fresh points), but on convex or
   concave `f` one endpoint is retained forever; the bracket width stagnates
   and the convergence degrades to linear with a problem-dependent factor.
@@ -71,17 +73,22 @@ algorithmic state:
 > replacing the `a`-side for a second time sets `v_b <- v_b / 2`
 > (symmetrically `v_a <- v_a / 2` for the `b`-side).
 
-* **Why it works:** halving the retained value doubles its weight in the
+* **Why it works:** halving the retained value REDUCES its weight in the
+  interpolation, pulling the next secant proposal toward that retained
+  endpoint and breaking the one-sided crawl (textbook asymptotic order
+  ~1.44 under standard assumptions - an asymptotic statement, not a
+  guarantee from the measured examples).
   proposal, pulling the next point across the root and breaking the one-sided
   crawl. In alternating phases no halving occurs, the stored values stay
   exact, and each proposal is a secant step through two fresh points.
 * **Guarantees/caveats:** no a-priori bound better than bisection's; in
-  practice superlinear with asymptotic order about 1.44. Stored endpoint
+  practice asymptotically ~1.44 under textbook assumptions. Stored endpoint
   values may differ from the true residuals `f(a_k)`, `f(b_k)` — only the
   reported iterate residuals are exact. Measured 12 iterations on the hard
   convex case above (vs 465 for plain regula falsi).
 
-### 4. Safeguarded secant (original design)
+### 4. Safeguarded secant (independent implementation of standard
+bracketing/secant ideas)
 
 Proposal from the secant line through the **two most recent iterates**
 `x_k, x_{k-1}` (regardless of which endpoints they became):
@@ -90,7 +97,7 @@ Proposal from the secant line through the **two most recent iterates**
 s_k = x_k - f_k · (x_k - x_{k-1}) / (f_k - f_{k-1})
 ```
 
-Safeguard rules (our own; no published Brent implementation was consulted
+Safeguard rules (an independent implementation of standard bracketing/secant ideas
 or copied):
 
 * **S1 — containment:** `s_k` is accepted only if it is finite and lies
@@ -102,12 +109,12 @@ or copied):
 
 Consequences:
 
-* **Worst-case guarantee:** the bracket halves at least every third
+* **Worst-case bracket-width contraction (exact arithmetic):** from the initial full width w0, the bracket halves at least every third
   iteration, so width-driven stopping needs at most
   `3·ceil(log2(w_0 / (2·xtol))) + O(1)` iterations — a small constant
   multiple of the bisection count, independent of how badly the secant
   proposals behave.
-* **Typical behaviour:** superlinear (secant-grade) whenever the secant
+* **Typical behaviour:** secant-grade convergence whenever the secant
   proposals stay inside the bracket; measured 6–20 iterations on the test
   equations vs 44–47 for bisection.
 * The first proposal is the false-position point of the initial bracket
@@ -124,7 +131,10 @@ The kernel stops with `flag` set as follows:
 | 2 | `MAX_ITERATIONS` | the iteration budget was exhausted before either stopping test held |
 | 3 | `NOT_CONVERGED` | machine-precision stagnation: an iteration failed to strictly shrink the bracket (no representable progress) while the tolerances were still unmet |
 
-On any non-`OK` exit the result still reports the last iterate, its true
+On `MAX_ITERATIONS`/`NOT_CONVERGED` exits the result reports the last
+probed iterate with its true residual; on `INVALID_BRACKET` before any
+iterate (or a zero budget) the root/residual are NaN by design (documented
+semantics, not a last iterate)
 residual, and the number of iterations used, so callers can inspect how far
 the solver got. Tolerances are expected to be non-negative and `maxiter >= 1`;
 violating budgets simply returns `MAX_ITERATIONS`.

@@ -56,6 +56,11 @@ contains
       f_line = x
    end function f_line
 
+   pure real(rk) function f_asym(x)       ! root 2.01, near the left end of [2,3]
+      real(rk), intent(in) :: x
+      f_asym = x - 2.01_rk
+   end function f_asym
+
 end module test_functions
 
 program test_roots
@@ -153,6 +158,27 @@ program test_roots
               'flag_message: MAX_ITERATIONS')
    call check(trim(flag_message(root_err_not_converged)) == 'NOT_CONVERGED', &
               'flag_message: NOT_CONVERGED')
+
+   ! ---- 10. xtol contract: width-stop returns the bracket midpoint --------
+   ! f(x) = x - 2.01 on [2,3], xtol = 0.1, ftol = 0: bisection stops after
+   ! 3 iterations with bracket [2, 2.125].  Returning the probed endpoint
+   ! 2.125 would give |root - r| = 0.115 > xtol; the midpoint 2.0625 gives
+   ! 0.0525 <= xtol.  (Regression test for the midpoint-return fix.)
+   call bisection(f_asym, 2.0_rk, 3.0_rk, 0.1_rk, 0.0_rk, 100, rb)
+   call check(rb%flag == root_ok, 'xtol contract: loose-xtol bisection returns OK')
+   call check(rb%iterations == 3, 'xtol contract: stops at first half-width <= xtol')
+   call check(abs(rb%root - 2.0625_rk) <= 1.0e-12_rk, &
+              'xtol contract: width-stop returns final bracket midpoint 2.0625')
+   call check(abs(rb%root - 2.01_rk) <= 0.1_rk, &
+              'xtol contract: |root - r| <= xtol (endpoint return would give 0.115)')
+   call check(abs(rb%residual - (2.0625_rk - 2.01_rk)) <= 1.0e-12_rk, &
+              'xtol contract: reported residual is the true midpoint residual')
+   call illinois(f_asym, 2.0_rk, 3.0_rk, 0.1_rk, 0.0_rk, 100, ri)
+   call check(ri%flag == root_ok .and. abs(ri%root - 2.01_rk) <= 0.1_rk + 1.0e-12_rk, &
+              'xtol contract: illinois midpoint return within xtol of root')
+   call safeguarded_secant(f_asym, 2.0_rk, 3.0_rk, 0.1_rk, 0.0_rk, 100, rs)
+   call check(rs%flag == root_ok .and. abs(rs%root - 2.01_rk) <= 0.1_rk + 1.0e-12_rk, &
+              'xtol contract: safeguarded midpoint return within xtol of root')
 
    write (output_unit, '()')
    write (output_unit, '(a,i0,a,i0,a)') 'passed ', nchecks - nfail, ' / ', nchecks, ' checks'
