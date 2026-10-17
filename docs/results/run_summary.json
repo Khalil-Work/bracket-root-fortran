@@ -1,0 +1,150 @@
+{
+  "project": "bracket-root-fortran",
+  "generated_utc": "2026-10-17T22:03:35Z",
+  "compiler": "GNU Fortran (MinGW-W64 x86_64-ucrt-posix-seh, built by Brecht Sanders, r2) 16.2.0",
+  "fortran_flags": "-std=f2018 -Wall -Wextra -O2 -fall-intrinsics",
+  "driver_tolerances": {
+    "xtol": 1e-14,
+    "ftol": 1e-14,
+    "maxiter": 200
+  },
+  "animation": {
+    "file": "docs/results/bracket_animation.gif",
+    "frames": 46,
+    "frame_ms": 400
+  },
+  "results": [
+    {
+      "method": "bisection",
+      "equation": "cubic",
+      "iterations": 46,
+      "final_residual": -1.5987211554602254e-14,
+      "flag": 0,
+      "flag_name": "OK",
+      "root": 2.094551481542325,
+      "reference_root": 2.0945514815423265,
+      "abs_error": 1.3322676295501878e-15
+    },
+    {
+      "method": "illinois",
+      "equation": "cubic",
+      "iterations": 8,
+      "final_residual": -8.881784197001252e-16,
+      "flag": 0,
+      "flag_name": "OK",
+      "root": 2.0945514815423265,
+      "reference_root": 2.0945514815423265,
+      "abs_error": 0.0
+    },
+    {
+      "method": "safeguarded_secant",
+      "equation": "cubic",
+      "iterations": 6,
+      "final_residual": -8.881784197001252e-16,
+      "flag": 0,
+      "flag_name": "OK",
+      "root": 2.0945514815423265,
+      "reference_root": 2.0945514815423265,
+      "abs_error": 0.0
+    },
+    {
+      "method": "bisection",
+      "equation": "cosx",
+      "iterations": 44,
+      "final_residual": 8.43769498715119e-15,
+      "flag": 0,
+      "flag_name": "OK",
+      "root": 0.7390851332151556,
+      "reference_root": 0.7390851332151607,
+      "abs_error": 5.10702591327572e-15
+    },
+    {
+      "method": "illinois",
+      "equation": "cosx",
+      "iterations": 7,
+      "final_residual": 0.0,
+      "flag": 0,
+      "flag_name": "OK",
+      "root": 0.7390851332151607,
+      "reference_root": 0.7390851332151607,
+      "abs_error": 0.0
+    },
+    {
+      "method": "safeguarded_secant",
+      "equation": "cosx",
+      "iterations": 6,
+      "final_residual": 0.0,
+      "flag": 0,
+      "flag_name": "OK",
+      "root": 0.7390851332151607,
+      "reference_root": 0.7390851332151607,
+      "abs_error": 0.0
+    },
+    {
+      "method": "bisection",
+      "equation": "sinx",
+      "iterations": 44,
+      "final_residual": -9.769962616701378e-15,
+      "flag": 0,
+      "flag_name": "OK",
+      "root": 0.5235987755982876,
+      "reference_root": 0.5235987755982989,
+      "abs_error": 1.1324274851176597e-14
+    },
+    {
+      "method": "illinois",
+      "equation": "sinx",
+      "iterations": 8,
+      "final_residual": 0.0,
+      "flag": 0,
+      "flag_name": "OK",
+      "root": 0.5235987755982989,
+      "reference_root": 0.5235987755982989,
+      "abs_error": 0.0
+    },
+    {
+      "method": "safeguarded_secant",
+      "equation": "sinx",
+      "iterations": 14,
+      "final_residual": 1.7763568394002505e-15,
+      "flag": 0,
+      "flag_name": "OK",
+      "root": 0.5235987755983009,
+      "reference_root": 0.5235987755982989,
+      "abs_error": 1.9984014443252818e-15
+    },
+    {
+      "method": "bisection",
+      "equation": "omega",
+      "iterations": 47,
+      "final_residual": 1.2434497875801753e-14,
+      "flag": 0,
+      "flag_name": "OK",
+      "root": 0.5671432904097884,
+      "reference_root": 0.5671432904097838,
+      "abs_error": 4.551914400963142e-15
+    },
+    {
+      "method": "illinois",
+      "equation": "omega",
+      "iterations": 9,
+      "final_residual": 2.220446049250313e-16,
+      "flag": 0,
+      "flag_name": "OK",
+      "root": 0.567143290409784,
+      "reference_root": 0.5671432904097838,
+      "abs_error": 1.1102230246251565e-16
+    },
+    {
+      "method": "safeguarded_secant",
+      "equation": "omega",
+      "iterations": 20,
+      "final_residual": 2.220446049250313e-16,
+      "flag": 0,
+      "flag_name": "OK",
+      "root": 0.567143290409784,
+      "reference_root": 0.5671432904097838,
+      "abs_error": 1.1102230246251565e-16
+    }
+  ]
+}

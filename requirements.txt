@@ -1,0 +1,5 @@
+# Python side used only to visualise the Fortran solver CSVs
+# (figures, animated GIF, run summary).  The solvers themselves are Fortran.
+matplotlib==3.10.0
+numpy==2.1.3
+pillow==11.0.0
