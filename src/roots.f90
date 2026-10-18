@@ -150,6 +150,7 @@ contains
       real(rk) :: aa, bb, faw, fbw   ! working bracket + stored endpoint values
       real(rk) :: xc, fc, xp, fp     ! secant pair: current and previous iterate
       real(rk) :: xn, fn             ! this iteration's point and residual
+      real(rk) :: xm, fm             ! midpoint returned on xtol convergence
       real(rk) :: s, m, denom        ! secant proposal, midpoint, denominator
       real(rk) :: wprev, wnew        ! bracket widths before/after the update
       integer  :: it, nslow          ! iteration index, non-halving streak
@@ -293,9 +294,35 @@ contains
             end if
          end if
 
-         ! convergence: residual test (covers the exact-zero case for
-         ! ftol >= 0) or bracket-width test
-         if (abs(fn) <= ftol .or. 0.5_rk*wnew <= xtol) then
+         ! convergence, residual test (covers the exact-zero case for
+         ! ftol >= 0): the probed point itself is returned
+         if (abs(fn) <= ftol) then
+            res%flag = root_ok
+            done = .true.
+            exit
+         end if
+
+         ! convergence, bracket-width test: return the midpoint of the
+         ! updated bracket.  The probed point xn is an ENDPOINT of [aa, bb],
+         ! so it carries no half-width error bound; the midpoint m satisfies
+         ! |m - r| <= (bb - aa)/2 <= xtol for every r in the bracket, up to
+         ! the rounding of the midpoint sum.  This performs one additional
+         ! function evaluation that is not counted in res%iterations (which
+         ! counts probing iterations), and the history keeps recording the
+         ! probed points, so on this exit res%root need not equal the last
+         ! history row's x.
+         if (0.5_rk*wnew <= xtol) then
+            xm = aa + 0.5_rk*(bb - aa)
+            fm = f(xm)
+            if (.not. ieee_is_finite(fm)) then
+               res%root = xm
+               res%residual = fm
+               res%flag = root_err_invalid_bracket
+               done = .true.
+               exit
+            end if
+            res%root = xm
+            res%residual = fm
             res%flag = root_ok
             done = .true.
             exit
