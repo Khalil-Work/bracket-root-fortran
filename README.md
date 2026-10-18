@@ -103,10 +103,10 @@ Iterations to convergence (final `|f(x)|` at exit):
 
 | equation | bracket | reference root | bisection | Illinois | safeguarded secant |
 |---|---|---|---|---|---|
-| `x^3 - 2x - 5 = 0` | `[2, 3]` | 2.0945514815423265 | 46 (1.6e-14) | 8 (8.9e-16) | **6** (8.9e-16) |
+| `x^3 - 2x - 5 = 0` | `[2, 3]` | 2.0945514815423265 | 46 (6.4e-14) | 8 (8.9e-16) | **6** (8.9e-16) |
 | `cos x - x = 0` | `[0, 1]` | 0.7390851332151607 | 44 (8.4e-15) | 7 (0) | **6** (0) |
 | `sin x = 1/2` | `[0, 1.5]` | pi/6 = 0.5235987755982989 | 44 (9.8e-15) | **8** (0) | 14 (1.8e-15) |
-| `x e^x = 1` | `[0, 2]` | W(1) = 0.5671432904097838 | 47 (1.2e-14) | **9** (2.2e-16) | 20 (2.2e-16) |
+| `x e^x = 1` | `[0, 2]` | W(1) = 0.5671432904097838 | 47 (7.2e-15) | **9** (2.2e-16) | 20 (2.2e-16) |
 
 Hard convex case (`e^x - 2 = 0` on `[0, 5]`, tolerance `1e-12`, from the test
 suite): **Illinois 12 iterations vs plain regula falsi 465** — the one-sided
