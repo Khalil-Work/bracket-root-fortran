@@ -3,7 +3,7 @@
 `tests/test_roots.f90` is an assertion suite run by `make test`; it exits
 with status 1 (`error stop 1`) if any check fails, so CI gates on it.
 Every check prints `PASS`/`FAIL` with a specific message
-(96 checks total in the reference run; all passing).
+(103 checks total in the reference run; all passing).
 
 ## Reference roots used
 
@@ -64,6 +64,8 @@ analytic root; `x·e^x = 1` is an additional known-constant case.
 
 8. **Flag naming.** `flag_message` maps all four codes to their documented
    names (used by the driver's summary CSV).
+
+9. **Width-stop contract (7 checks).** Loose-xtol runs for bisection, Illinois and safeguarded secant return the updated bracket midpoint. The cubic regression checks the midpoint2.0625, its true residual, and the xtol root-error bound; returning the probed endpoint would violate that bound. The optional final midpoint evaluation is not a probing iteration; history rows retain the probed points.
 
 ## Limits of the verification
 

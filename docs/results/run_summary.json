@@ -1,6 +1,6 @@
 {
   "project": "bracket-root-fortran",
-  "generated_utc": "2026-10-17T22:03:35Z",
+  "generated_utc": "2026-10-18T00:21:19Z",
   "compiler": "GNU Fortran (MinGW-W64 x86_64-ucrt-posix-seh, built by Brecht Sanders, r2) 16.2.0",
   "fortran_flags": "-std=f2018 -Wall -Wextra -O2 -fall-intrinsics",
   "driver_tolerances": {
@@ -18,12 +18,12 @@
       "method": "bisection",
       "equation": "cubic",
       "iterations": 46,
-      "final_residual": -1.5987211554602254e-14,
+      "final_residual": 6.394884621840902e-14,
       "flag": 0,
       "flag_name": "OK",
-      "root": 2.094551481542325,
+      "root": 2.0945514815423323,
       "reference_root": 2.0945514815423265,
-      "abs_error": 1.3322676295501878e-15
+      "abs_error": 5.773159728050814e-15
     },
     {
       "method": "illinois",
@@ -117,12 +117,12 @@
       "method": "bisection",
       "equation": "omega",
       "iterations": 47,
-      "final_residual": 1.2434497875801753e-14,
+      "final_residual": -7.216449660063518e-15,
       "flag": 0,
       "flag_name": "OK",
-      "root": 0.5671432904097884,
+      "root": 0.5671432904097813,
       "reference_root": 0.5671432904097838,
-      "abs_error": 4.551914400963142e-15
+      "abs_error": 2.55351295663786e-15
     },
     {
       "method": "illinois",

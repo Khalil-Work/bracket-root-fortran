@@ -84,7 +84,7 @@ CI builds and runs the test suite on ubuntu gfortran with the same flags
 ```
 src/roots.f90            module bracket_root: 4 solvers, shared verified kernel,
                          error flags, step_record history, pure procedures
-tests/test_roots.f90     assertion suite (make test) - 96 checks
+tests/test_roots.f90     assertion suite (make test) - 103 checks
 examples/compare.f90     driver: 4 equations x 3 methods -> build/csv/*.csv
 tools/make_results.py    reads the CSVs -> still figures, animated GIF,
                          run_summary.json (plotting only; solvers are Fortran)
@@ -116,7 +116,7 @@ stagnation the Illinois modification exists to fix. Convergence plots:
 
 ## Verification summary
 
-`make test` runs 96 assertion checks, all passing in the reference run:
+`make test` runs 103 assertion checks, all passing in the reference run:
 
 - known roots (4 equations x 3 solvers) within `1e-12`, flags `OK`;
 - invalid brackets detected (same-sign endpoints, reversed bracket,
@@ -154,3 +154,8 @@ polynomial rootfinding claims, IEEE assumptions): [docs/verification.md](docs/ve
 ## License
 
 MIT — see [LICENSE](LICENSE).
+
+
+Calendar metadata: [date-record disclosure](docs/CALENDAR_HISTORY.md). Historical calendar-record author dates are synthetic; original software commits and actual committer dates are preserved.
+
+[Recorded Fortran driver CSVs](docs/results/data/summary.csv) accompany the regenerated figures; all twelve method/equation histories are saved in the same data directory.
