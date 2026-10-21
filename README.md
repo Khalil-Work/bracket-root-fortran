@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="docs/banner.svg" alt="Bracket Root banner: technical-paper style bracket convergence schematic on cream paper" width="100%">
+<img src="docs/banner.png" alt="Bracket Root banner: technical-paper style bracket convergence schematic on cream paper" width="100%">
 
 # 🔲 Bracket Root
 
@@ -60,14 +60,14 @@ Full formulas, guarantees, stopping criteria and symbol table:
 
 ```mermaid
 flowchart TD
-    A[bracket a, b with sign change] --> B{secant proposal<br/>strictly inside bracket?}
+    A[bracket a, b with sign change] --> B{"secant proposal<br/>strictly inside bracket?"}
     B -- yes --> C[accept secant step]
     B -- no --> D[midpoint step]
-    C --> E{two consecutive steps<br/>without halving?}
+    C --> E{"two consecutive steps<br/>without halving?"}
     E -- yes --> D
     E -- no --> F[update endpoint keeping sign change]
     D --> F
-    F --> G{residual/width<br/>within tolerance?}
+    F --> G{"residual/width<br/>within tolerance?"}
     G -- yes --> H[✅ flag OK + history]
     G -- no --> B
 ```
