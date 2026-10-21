@@ -10,13 +10,13 @@
 comparison across bisection, Illinois and safeguarded secant. All solver code written
 from scratch (Brent's book cited for context only, no code taken).**
 
-[![tests](https://github.com/khalil-official/bracket-root-fortran/actions/workflows/ci.yml/badge.svg)](https://github.com/khalil-official/bracket-root-fortran/actions/workflows/ci.yml)
+[![tests](https://github.com/khalil-work/bracket-root-fortran/actions/workflows/ci.yml/badge.svg)](https://github.com/khalil-work/bracket-root-fortran/actions/workflows/ci.yml)
 [![license](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![language](https://img.shields.io/badge/language-Fortran%202018-734f96.svg)](src)
 [![checks](https://img.shields.io/badge/assertions-103%20passing-brightgreen.svg)](tests)
 [![gfortran](https://img.shields.io/badge/gfortran-16.2%20--std%3Df2018-orange.svg)](.github/workflows/ci.yml)
-[![repo stars](https://img.shields.io/github/stars/khalil-official/bracket-root-fortran?style=flat&color=yellow)](https://github.com/khalil-official/bracket-root-fortran/stargazers)
-[![last commit](https://img.shields.io/github/last-commit/khalil-official/bracket-root-fortran?color=9cf)](https://github.com/khalil-official/bracket-root-fortran/commits)
+[![repo stars](https://img.shields.io/github/stars/khalil-work/bracket-root-fortran?style=flat&color=yellow)](https://github.com/khalil-work/bracket-root-fortran/stargazers)
+[![last commit](https://img.shields.io/github/last-commit/khalil-work/bracket-root-fortran?color=9cf)](https://github.com/khalil-work/bracket-root-fortran/commits)
 
 [Quick start](#-quick-start) · [Solvers](#-model-summary) · [Animation](#%EF%B8%8F-results-gallery) · [Measured results](#-measured-results-real-run) · [References](#-references-context-only--all-solver-code-written-from-scratch)
 
