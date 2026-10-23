@@ -18,7 +18,7 @@ from scratch (Brent's book cited for context only, no code taken).**
 [![repo stars](https://img.shields.io/github/stars/khalil-work/bracket-root-fortran?style=flat&color=yellow)](https://github.com/khalil-work/bracket-root-fortran/stargazers)
 [![last commit](https://img.shields.io/github/last-commit/khalil-work/bracket-root-fortran?color=9cf)](https://github.com/khalil-work/bracket-root-fortran/commits)
 
-[Quick start](#-quick-start) · [Solvers](#-model-summary) · [Animation](#%EF%B8%8F-results-gallery) · [Measured results](#-measured-results-real-run) · [References](#-references-context-only--all-solver-code-written-from-scratch)
+[Homepage](https://khalil-work.github.io) · [Quick start](#-quick-start) · [Solvers](#-model-summary) · [Animation](#%EF%B8%8F-results-gallery) · [Measured results](#-measured-results-real-run) · [References](#-references-context-only--all-solver-code-written-from-scratch)
 
 </div>
 
